@@ -1,0 +1,35 @@
+body {
+  font-family: monospace!important;
+  font-weight: 200;
+}
+
+svg:hover {
+  fill: #34c9eb;
+}
+
+td {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0,0,0,0.07)
+}
+
+.animateGrow {
+  width: max-content;
+  background-color: white;
+  animation-name: animateBlockHeight;
+  animation-duration: 1s;
+}
+@keyframes animateBlockHeight {
+    0%   {background-color:white;}
+    35%  {background-color:rgba(230,255,117,0.5);}
+    65%  {background-color:rgba(230,255,117,0.5);}
+    100% {background-color:white;}
+}
+
+.nodeaddress:hover {
+  color: #34c9eb
+}
+
+.tableHeader:hover {
+  color: #004d59
+}
