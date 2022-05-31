@@ -1,0 +1,5 @@
+V 00.01.00
+- Added in max age to set cookie so favs persists after browser closure
+
+V 00.00.1
+- Proper use of redux now being used (common functions etc...)
