@@ -82,27 +82,23 @@ export const getData = async () => {
     item.apy = (((((item.current_award/ratioRewardsAPY)/100000000)*churnsInYear)/(item.bond/100000000))*100).toFixed(2)+'%'
     return item
   })
+  const data2 = val.data.map(item =>item.observe_chains).filter(item => item !== null)
 
-  const maxBTCHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
-  .map(item => item.filter(item=>item.chain === 'BTC')[0].height).reduce((a, b) => { return Math.max(a, b) });
+  function reduceDown(data, chain) {
+    const a = data.map(item => item.filter(item=>item.chain === chain)) //Get data just for out chain
+    const b = a.filter(item => item.length > 0) //Filter out if any nodes have missing data
+    const c = b.map(item => item[0].height) //Grab just the height metric
+    const d = c.reduce((a, b) => { return Math.max(a, b) }) //Grab max of our values
+    return d
+  }
 
-  const maxDogeHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
-  .map(item => item.filter(item=>item.chain === 'DOGE')[0].height).reduce((a, b) => { return Math.max(a, b) });
-
-  const maxEthHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
-  .map(item => item.filter(item=>item.chain === 'ETH')[0].height).reduce((a, b) => { return Math.max(a, b) });
-
-  const maxLTCHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
-  .map(item => item.filter(item=>item.chain === 'LTC')[0].height).reduce((a, b) => { return Math.max(a, b) });
-
-  const maxTerraHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
-  .map(item => item.filter(item=>item.chain === 'TERRA')[0].height).reduce((a, b) => { return Math.max(a, b) });
-
-  const maxBCHHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
-  .map(item => item.filter(item=>item.chain === 'BCH')[0].height).reduce((a, b) => { return Math.max(a, b) });
-
-  const maxBNBHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
-  .map(item => item.filter(item=>item.chain === 'BNB')[0].height).reduce((a, b) => { return Math.max(a, b) });
+  const maxBTCHeight = reduceDown(data2, 'BTC')
+  const maxDogeHeight = reduceDown(data2, 'DOGE')
+  const maxEthHeight = reduceDown(data2, 'ETH')
+  const maxLTCHeight = reduceDown(data2, 'LTC')
+  const maxTerraHeight = reduceDown(data2, 'TERRA')
+  const maxBCHHeight = reduceDown(data2, 'BCH')
+  const maxBNBHeight = reduceDown(data2, 'BNB')
 
   const totalBondedValue = (val.data.map(item => item.bond).reduce((prev, next) => prev + next))/100000000;
   globalData.totalBondedValue = totalBondedValue;
