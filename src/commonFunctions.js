@@ -95,8 +95,8 @@ export const getData = async () => {
   const maxLTCHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
   .map(item => item.filter(item=>item.chain === 'LTC')[0].height).reduce((a, b) => { return Math.max(a, b) });
 
-  const maxTerraHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
-  .map(item => item.filter(item=>item.chain === 'TERRA')[0].height).reduce((a, b) => { return Math.max(a, b) });
+  const maxGaiaHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
+  .map(item => item.filter(item=>item.chain === 'GAIA')[0].height).reduce((a, b) => { return Math.max(a, b) });
 
   const maxBCHHeight = val.data.map(item =>item.observe_chains).filter(item => item !== null)
   .map(item => item.filter(item=>item.chain === 'BCH')[0].height).reduce((a, b) => { return Math.max(a, b) });
@@ -107,7 +107,7 @@ export const getData = async () => {
   const totalBondedValue = (val.data.map(item => item.bond).reduce((prev, next) => prev + next))/100000000;
   globalData.totalBondedValue = totalBondedValue;
 
-  return {data: val.data, globalData: globalData, maxChainHeights: {BTC: maxBTCHeight, DOGE: maxDogeHeight, ETH: maxEthHeight, LTC: maxLTCHeight, TERRA: maxTerraHeight, BCH: maxBCHHeight, BNB: maxBNBHeight}}
+  return {data: val.data, globalData: globalData, maxChainHeights: {BTC: maxBTCHeight, DOGE: maxDogeHeight, ETH: maxEthHeight, LTC: maxLTCHeight, GAIA: maxGaiaHeight, BCH: maxBCHHeight, BNB: maxBNBHeight}}
 }
 
 export const refreshData = async () => {
