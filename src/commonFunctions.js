@@ -91,19 +91,20 @@ export const getData = async () => {
     const d = c.reduce((a, b) => { return Math.max(a, b) }) //Grab max of our values
     return d
   }
-
+  //console.log('data2', data2)
   const maxBTCHeight = reduceDown(data2, 'BTC')
   const maxDogeHeight = reduceDown(data2, 'DOGE')
   const maxEthHeight = reduceDown(data2, 'ETH')
   const maxLTCHeight = reduceDown(data2, 'LTC')
-  const maxTerraHeight = reduceDown(data2, 'TERRA')
+  //const maxTerraHeight = reduceDown(data2, 'TERRA')
   const maxBCHHeight = reduceDown(data2, 'BCH')
   const maxBNBHeight = reduceDown(data2, 'BNB')
+  const maxGAIAHeight = reduceDown(data2, 'GAIA')
 
   const totalBondedValue = (val.data.map(item => item.bond).reduce((prev, next) => prev + next))/100000000;
   globalData.totalBondedValue = totalBondedValue;
 
-  return {data: val.data, globalData: globalData, maxChainHeights: {BTC: maxBTCHeight, DOGE: maxDogeHeight, ETH: maxEthHeight, LTC: maxLTCHeight, TERRA: maxTerraHeight, BCH: maxBCHHeight, BNB: maxBNBHeight}}
+  return {data: val.data, globalData: globalData, maxChainHeights: {BTC: maxBTCHeight, DOGE: maxDogeHeight, ETH: maxEthHeight, LTC: maxLTCHeight, GAIA: maxGAIAHeight, BCH: maxBCHHeight, BNB: maxBNBHeight}}
 }
 
 export const refreshData = async () => {

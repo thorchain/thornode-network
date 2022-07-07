@@ -28,7 +28,8 @@ import bitcoin from '@iso/assets/images/bitcoin.png';
 import litecoin from '@iso/assets/images/litecoin.png';
 import bitcoincash from '@iso/assets/images/bitcoincash.png';
 import dogecoin from '@iso/assets/images/dogecoin.png';
-import luna from '@iso/assets/images/luna.png';
+//import luna from '@iso/assets/images/luna.png';
+import gaia from '@iso/assets/images/atom.png';
 
 const leaveIcon = <svg style={{marginTop: 5}} focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="20" height="20" viewBox="0 0 30 30" aria-hidden="true" className="sfg"><path d="M6,30H18a2.0023,2.0023,0,0,0,2-2V25H18v3H6V4H18V7h2V4a2.0023,2.0023,0,0,0-2-2H6A2.0023,2.0023,0,0,0,4,4V28A2.0023,2.0023,0,0,0,6,30Z"></path><path d="M20.586 20.586L24.172 17 10 17 10 15 24.172 15 20.586 11.414 22 10 28 16 22 22 20.586 20.586z"></path></svg>
 
@@ -236,7 +237,7 @@ const ReturnIspImage = ({isp}) => {
 const ChainTD = ({chain, obchains, maxChainHeights}) => {
   const delta = obchains[chain]-maxChainHeights[chain]
   return (
-    <td style={{ fontFamily: 'monospace', textAlign: 'center', color: delta<-5 ? 'red' : null}}>{delta===0 ? 'OK' : delta}</td>
+    <td style={{ fontFamily: 'monospace', textAlign: 'center', color: (delta<-5 || isNaN(delta)) ? 'red' : null}}>{delta===0 ? 'OK' : delta.toString()}</td>
   )
 }
 
@@ -286,7 +287,7 @@ const NodeTable = ({nodeData, clickSortHeader, sortColour, maxChainHeights, chai
               <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={litecoin} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
               <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={bitcoincash} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
               <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={dogecoin} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
-              <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={luna} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
+              <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={gaia} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
             </>
           }
           <th className="tableHeader" style={{...headerStyle, textAlign: 'center'}}>RPC</th>
@@ -340,7 +341,7 @@ const NodeTable = ({nodeData, clickSortHeader, sortColour, maxChainHeights, chai
               <ChainTD chain={'LTC'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
               <ChainTD chain={'BCH'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
               <ChainTD chain={'DOGE'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
-              <ChainTD chain={'TERRA'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
+              <ChainTD chain={'GAIA'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
             </>
           }
           <td style={{...tdStyle, textAlign: 'center'}}><a style={{color: 'rgba(0,0,0,0.85)', fontSize: 18}} href={`http://${item.ip_address}:27147/health?`} target="_blank" rel="noopener noreferrer">{item.rpc === 'true' ? '*' : 'BAD'}</a></td>

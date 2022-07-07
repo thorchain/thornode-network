@@ -1,5 +1,8 @@
 V 00.02.00
-- Fixed bug where grabbing max chain height was erroring out if a node didn't have that chain
+- Removed Luna, added Atom
+
+V 00.02.00
+- Fixed bug where grabbing max chain height was erroring out if a node didn't have that chainn
 
 V 00.01.00
 - Added in max age to set cookie so favs persists after browser closure
