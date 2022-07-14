@@ -561,10 +561,36 @@ Worst Performer (Can't churn out if just churned in, one cycle grace period)
     activeNodesSorted[0].action = 'Smallest Bond'
 
     activeNodesSorted = this.sortData(activeNodes, 'score', 'asc', true)
-    //activeNodesSorted[0].action = 'Worst Performing'
+    //we set the 'Worst Performing' tag in the sortData function
+
+    this.calcBadValidatorRedline(activeNodes)
 
     return activeNodesSorted
   }
+
+  calcBadValidatorRedline(activeNodes){
+
+    //Only get nodes with slashes greater than 100
+    const greater100Slashes = activeNodes.filter(item => item.slash_points > 100)
+    //Add all the scores together for thes nodes
+    const sum = greater100Slashes.reduce((accumulator, object) => {
+      return accumulator + parseFloat(object.score);
+    }, 0);
+    //Find the average
+    const averageScore = sum/(greater100Slashes.length+1)
+
+    const validatorLine = averageScore/this.state.globalData.BadValidatorRedline
+
+    activeNodes.map(item => {
+      if(item.score < validatorLine) {
+        item.action = 'Bad Redline'
+      }
+      return 0
+    })
+
+  }
+
+
 /*
 Sort by either string or number
 We use string sort function if value is one of the arrays else do second sort number

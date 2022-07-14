@@ -64,14 +64,22 @@ export const getData = async () => {
 
   globalData.coingecko = JSON.parse(globalData.coingecko)[0];
 
-  globalData = {...globalData, ...{timeUntilChurn: timeUntilChurn}, ...{timeUntilRetry: timeUntilRetry}, churnTry: secondsUntilChurn < 0 ? true : false, ratioRewardsAPY: ratioRewardsAPY, maxVersion:maxVersion}
+  globalData = {...globalData,
+    ...{timeUntilChurn: timeUntilChurn},
+    ...{timeUntilRetry: timeUntilRetry},
+    churnTry: secondsUntilChurn < 0 ? true : false,
+    ratioRewardsAPY: ratioRewardsAPY,
+    maxVersion:maxVersion
+  }
+
+  globalData.blocksSinceLastChurn = globalData.maxHeight - globalData.lastChurn
 
 
   //Do calcs for whatever we need
   //Calc age (dont need to save it back)
   val.data.map(item => {
     item.age = (((globalData.maxHeight - item.status_since)*blockTime)/60/60/24)
-    item.score = ((1/item.slash_points)*10000).toFixed(0)//((item.age/item.slash_points)*10000).toFixed(0)
+    item.score = (globalData.blocksSinceLastChurn/item.slash_points).toFixed(1)
     item.score = item.score === 'Infinity' ? '-' : item.score
     item.action = '-'
     item.bond_providers = JSON.parse(item.bond_providers)
