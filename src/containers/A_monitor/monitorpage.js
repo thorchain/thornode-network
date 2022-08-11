@@ -571,17 +571,19 @@ We use string sort function if value is one of the arrays else do second sort nu
   sortData(data, value = null, direction = null, worst_perform = false) {
     const toSortBy = value === null ? this.state.sortBy : value
     let newData = []
+    let alphabeticData = []
+    alphabeticData = data.sort((a, b) => a['node_address'].localeCompare(b['node_address']));
     if (['node', 'isp', 'location', 'version', 'action', 'node_address'].includes(toSortBy)){ //Add items we want to sort by that are strings
       //This sort function for strings
-      newData = data.sort((a, b) => a[toSortBy].localeCompare(b[toSortBy]));
+      newData = alphabeticData.sort((a, b) => a[toSortBy].localeCompare(b[toSortBy]));
     } else if (toSortBy === 'bond_providers') {
       //This is for bond provider sort as we need to go another layer deep in the object
-      newData = data.sort((a, b) => a[toSortBy].providers.length - b[toSortBy].providers.length);
+      newData = alphabeticData.sort((a, b) => a[toSortBy].providers.length - b[toSortBy].providers.length);
     } else if (worst_perform === true) {
       //This is for when we are sorting for action of worst performance as we want to exclude any with age under 3 days
       const ageCutOffDays = 3
-      const a = data.filter(item => parseFloat(item.age) > ageCutOffDays)
-      const b = data.filter(item => parseFloat(item.age) <= ageCutOffDays)
+      const a = alphabeticData.filter(item => parseFloat(item.age) > ageCutOffDays)
+      const b = alphabeticData.filter(item => parseFloat(item.age) <= ageCutOffDays)
 
       const aSorted = a.sort((a, b) => (b[toSortBy] - a[toSortBy]) );
 
@@ -589,7 +591,7 @@ We use string sort function if value is one of the arrays else do second sort nu
       newData = [...aSorted, ...b]
     } else {
       //This sort function for numbers
-      newData = data.sort((a, b) => a[toSortBy] - b[toSortBy]);
+      newData = alphabeticData.sort((a, b) => a[toSortBy] - b[toSortBy]);
     }
     //If we pass it a direction, we set it here, if not we take it from the state
     const toDirection = direction === null ? this.state.sortDirection : direction
