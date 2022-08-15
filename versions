@@ -1,3 +1,7 @@
+V 00.05.00
+- Added second sort of node_address for when age is the same
+- Scaled down table
+
 V 00.04.00
 - Added bad validator line
 
@@ -5,7 +9,7 @@ V 00.03.00
 - Removed Luna, added Atom
 
 V 00.02.00
-- Fixed bug where grabbing max chain height was erroring out if a node didn't have that chainn
+- Fixed bug where grabbing max chain height was erroring out if a node didn't have that chain
 
 V 00.01.00
 - Added in max age to set cookie so favs persists after browser closure
