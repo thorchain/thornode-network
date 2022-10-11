@@ -28,14 +28,15 @@ import bitcoin from '@iso/assets/images/bitcoin.png';
 import litecoin from '@iso/assets/images/litecoin.png';
 import bitcoincash from '@iso/assets/images/bitcoincash.png';
 import dogecoin from '@iso/assets/images/dogecoin.png';
-import luna from '@iso/assets/images/luna.png';
+//import luna from '@iso/assets/images/luna.png';
+import gaia from '@iso/assets/images/atom.png';
 
 const leaveIcon = <svg style={{marginTop: 5}} focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="20" height="20" viewBox="0 0 30 30" aria-hidden="true" className="sfg"><path d="M6,30H18a2.0023,2.0023,0,0,0,2-2V25H18v3H6V4H18V7h2V4a2.0023,2.0023,0,0,0-2-2H6A2.0023,2.0023,0,0,0,4,4V28A2.0023,2.0023,0,0,0,6,30Z"></path><path d="M20.586 20.586L24.172 17 10 17 10 15 24.172 15 20.586 11.414 22 10 28 16 22 22 20.586 20.586z"></path></svg>
 
 const { Header, Footer, Content } = Layout;
 
-const headerStyle = {cursor: 'pointer'}
-const tdStyle = {minWidth: 80, textAlign: 'right', fontFamily: 'monospace'}
+const headerStyle = {cursor: 'pointer', paddingLeft: 10, paddingRight: 10}
+const tdStyle = {minWidth: 60, textAlign: 'right', fontFamily: 'monospace', fontSize: 14}
 const iconStyle = {minWidth: 25, padding: 5, paddingLeft: 10, paddingRight: 10}
 
 
@@ -236,7 +237,7 @@ const ReturnIspImage = ({isp}) => {
 const ChainTD = ({chain, obchains, maxChainHeights}) => {
   const delta = obchains[chain]-maxChainHeights[chain]
   return (
-    <td style={{ fontFamily: 'monospace', textAlign: 'center', color: delta<-5 ? 'red' : null}}>{delta===0 ? 'OK' : delta}</td>
+    <td style={{ fontFamily: 'monospace', textAlign: 'center', color: (delta<-5 || isNaN(delta)) ? 'red' : null}}>{delta===0 ? 'OK' : delta.toString()}</td>
   )
 }
 
@@ -259,16 +260,16 @@ const NodeTable = ({nodeData, clickSortHeader, sortColour, maxChainHeights, chai
 
   return (
     <div>
-    <table style={{minWidth: 1500, borderWidth: 1.1, borderColor: 'rgba(0,0,0,1)'}}>
+    <table style={{borderWidth: 1.1, borderColor: 'rgba(0,0,0,1)'}}>
       <thead>
         <tr style={{borderStyle: 'solid', borderWidth: 1.1, borderColor: 'rgba(0,0,0,1)', color: 'black', backgroundColor: 'rgb(221, 221, 221)', textAlign: 'right', marginRight: 10}}>
           <th></th>
           <th className="tableHeader" style={{...headerStyle, color: sortColour('node_address'), textAlign: 'left', minWidth: 120}}><span onClick={()=>clickSortHeader('node_address')}>NODE</span></th>
           <th className="tableHeader" style={{...headerStyle, color: sortColour('age')}}><span onClick={()=>clickSortHeader('age')}>AGE</span></th>
-          <th className="tableHeader" style={{...headerStyle, color: sortColour('action'), textAlign: 'center', minWidth: 140}}><span onClick={()=>clickSortHeader('action')}>ACTION</span></th>
-          <th className="tableHeader" style={{...headerStyle, color: sortColour('isp'), textAlign: 'center'}}><span onClick={()=>clickSortHeader('isp')}>ISP</span></th>
-          <th className="tableHeader" style={{...headerStyle, color: sortColour('location'), textAlign: 'left', minWidth: 165}}><span onClick={()=>clickSortHeader('location')}>LOCATION</span></th>
-          <th className="tableHeader" style={{...headerStyle, color: sortColour('bond'), minWidth: 110}}><span onClick={()=>clickSortHeader('bond')}>BOND</span></th>
+          <th className="tableHeader" style={{...headerStyle, color: sortColour('action'), textAlign: 'center', minWidth: 100}}><span onClick={()=>clickSortHeader('action')}>ACTION</span></th>
+          <th className="tableHeader" style={{...headerStyle, color: sortColour('isp'), textAlign: 'center', minWidth: 50}}><span onClick={()=>clickSortHeader('isp')}>ISP</span></th>
+          <th className="tableHeader" style={{...headerStyle, color: sortColour('location'), textAlign: 'left', minWidth: 100}}><span onClick={()=>clickSortHeader('location')}>LOCATION</span></th>
+          <th className="tableHeader" style={{...headerStyle, color: sortColour('bond'), minWidth: 90}}><span onClick={()=>clickSortHeader('bond')}>BOND</span></th>
           <th className="tableHeader" style={{...headerStyle, color: sortColour('bond_providers'), textAlign: 'center', minWidth: 110}}><span onClick={()=>clickSortHeader('bond_providers')}>PROVIDERS</span></th>
           <th className="tableHeader" style={{...headerStyle, color: sortColour('current_award')}}><span onClick={()=>clickSortHeader('current_award')}>REWARDS</span></th>
           <th className="tableHeader" style={{...headerStyle, color: sortColour('apy')}}><span onClick={()=>clickSortHeader('apy')}>APY</span></th>
@@ -286,7 +287,7 @@ const NodeTable = ({nodeData, clickSortHeader, sortColour, maxChainHeights, chai
               <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={litecoin} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
               <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={bitcoincash} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
               <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={dogecoin} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
-              <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={luna} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
+              <th className="tableHeader" style={{...headerStyle, ...iconStyle}}><img alt="#" src={gaia} style={{width: 25, height: 25, display: 'block', margin: 'auto'}}/></th>
             </>
           }
           <th className="tableHeader" style={{...headerStyle, textAlign: 'center'}}>RPC</th>
@@ -315,9 +316,9 @@ const NodeTable = ({nodeData, clickSortHeader, sortColour, maxChainHeights, chai
             <Icons address={item.node_address} ip_address={item.ip_address} addToFav={addToFav} whichHeart={whichHeart}/>
           </td>
           <td style={tdStyle}>{item.age.toFixed(2)}</td>
-          <td style={{...tdStyle, textAlign: 'center'}}>{item.action}</td>
+          <td style={{...tdStyle, textAlign: 'center', fontSize: 12}}>{item.action}</td>
           <td style={{...tdStyle, textAlign: 'center'}}><ReturnIspImage isp={item.isp}/></td>
-          <td style={{...tdStyle, textAlign: 'left'}}>{item.location}</td>
+          <td style={{...tdStyle, textAlign: 'left', fontSize: 12}}>{item.location}</td>
           <td style={tdStyle}>ᚱ{parseInt((item.bond/100000000).toFixed()).toLocaleString()}</td>
           <td style={{...tdStyle, textAlign: 'center'}}> <Popover
                         content={<BondProviderPopOver data={item.bond_providers.providers}/>}
@@ -340,11 +341,11 @@ const NodeTable = ({nodeData, clickSortHeader, sortColour, maxChainHeights, chai
               <ChainTD chain={'LTC'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
               <ChainTD chain={'BCH'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
               <ChainTD chain={'DOGE'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
-              <ChainTD chain={'TERRA'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
+              <ChainTD chain={'GAIA'} obchains={item.obchains} maxChainHeights={maxChainHeights} />
             </>
           }
-          <td style={{...tdStyle, textAlign: 'center'}}><a style={{color: 'rgba(0,0,0,0.85)', fontSize: 18}} href={`http://${item.ip_address}:27147/health?`} target="_blank" rel="noopener noreferrer">{item.rpc === 'true' ? '*' : 'BAD'}</a></td>
-          <td style={{...tdStyle, textAlign: 'center'}}><a style={{color: 'rgba(0,0,0,0.85)', fontSize: 18}} href={`http://${item.ip_address}:6040/p2pid`} target="_blank" rel="noopener noreferrer">{item.bifrost === 'true' ? '*' : 'BAD' }</a></td>
+          <td style={{...tdStyle, textAlign: 'center'}}><a style={{color: 'rgba(0,0,0,0.85)'}} href={`http://${item.ip_address}:27147/health?`} target="_blank" rel="noopener noreferrer">{item.rpc === 'true' ? '*' : 'BAD'}</a></td>
+          <td style={{...tdStyle, textAlign: 'center'}}><a style={{color: 'rgba(0,0,0,0.85)'}} href={`http://${item.ip_address}:6040/p2pid`} target="_blank" rel="noopener noreferrer">{item.bifrost === 'true' ? '*' : 'BAD' }</a></td>
        </tr>
       ))}
 
@@ -493,7 +494,14 @@ Disabled
       //Filter for our three tables
       let activeNodes = newItems.filter(item => item.status ==='Active')
       let standbyNodes = newItems.filter(item => (item.status ==='Standby' || item.status ==='Ready') && item.version === this.state.globalData.maxVersion)
-      let whitelisted = newItems.filter(item => !(item.status ==='Active' || item.status ==='Standby' || item.status ==='Ready') && item.version !== this.state.globalData.maxVersion)
+
+      //Create an array of all nodes that are active and standby
+      const active_standy_nodes = [ ...activeNodes.map(item => {return item.node_address}), ...standbyNodes.map(item => {return item.node_address})]
+      //White listed are all other nodes which are not active or on standby
+      //White listed is really just "Other"
+      let whitelisted = newItems.filter(item => !active_standy_nodes.includes(item.node_address))
+
+      //let whitelisted = newItems.filter(item => !(item.status ==='Active' || item.status ==='Standby' || item.status ==='Ready') /*&& item.version !== this.state.globalData.maxVersion*/)
 
       activeNodes = this.findChurnOuts(activeNodes) //Add in the actions for churning
       standbyNodes = this.findChurnIns(standbyNodes) //Add in the actions for nodes churning in
@@ -518,7 +526,7 @@ Disabled
       this.setState({
         activeNodes: activeNodesSorted,
         standByNodes: standBySorted,
-        whitelistedNodes: whitelistedSorted
+        whitelistedNodes: whitelistedSorted //This is really just other
       })
   }
 
@@ -560,10 +568,35 @@ Worst Performer (Can't churn out if just churned in, one cycle grace period)
     activeNodesSorted[0].action = 'Smallest Bond'
 
     activeNodesSorted = this.sortData(activeNodes, 'score', 'asc', true)
-    //activeNodesSorted[0].action = 'Worst Performing'
+    //we set the 'Worst Performing' tag in the sortData function
+
+    this.calcBadValidatorRedline(activeNodes)
 
     return activeNodesSorted
   }
+
+  calcBadValidatorRedline(activeNodes){
+
+    //Only get nodes with slashes greater than 100
+    const greater100Slashes = activeNodes.filter(item => item.slash_points > 100)
+    //Add all the scores together for thes nodes
+    const sum = greater100Slashes.reduce((accumulator, object) => {
+      return accumulator + parseFloat(object.score);
+    }, 0);
+    //Find the average
+    const averageScore = sum/(greater100Slashes.length+1)
+
+    const validatorLine = averageScore/this.state.globalData.BadValidatorRedline
+
+    activeNodes.map(item => {
+      if(item.score < validatorLine) {
+        item.action = 'Bad Redline'
+      }
+      return 0
+    })
+
+  }
+
 /*
 Sort by either string or number
 We use string sort function if value is one of the arrays else do second sort number
@@ -571,25 +604,31 @@ We use string sort function if value is one of the arrays else do second sort nu
   sortData(data, value = null, direction = null, worst_perform = false) {
     const toSortBy = value === null ? this.state.sortBy : value
     let newData = []
-    if (['node', 'isp', 'location', 'version', 'action', 'node_address'].includes(toSortBy)){ //Add items we want to sort by that are strings
-      //This sort function for strings
+
+    if (['node', 'isp', 'location', 'version', 'action', 'node_address'].includes(toSortBy)){ //This sort function for strings
       newData = data.sort((a, b) => a[toSortBy].localeCompare(b[toSortBy]));
-    } else if (toSortBy === 'bond_providers') {
-      //This is for bond provider sort as we need to go another layer deep in the object
+
+    } else if (toSortBy === 'bond_providers') {//This is for bond provider sort as we need to go another layer deep in the object
       newData = data.sort((a, b) => a[toSortBy].providers.length - b[toSortBy].providers.length);
-    } else if (worst_perform === true) {
-      //This is for when we are sorting for action of worst performance as we want to exclude any with age under 3 days
+
+    } else if (worst_perform === true) { //This is for when we are sorting for action of worst performance as we want to exclude any with age under 3 days
       const ageCutOffDays = 3
       const a = data.filter(item => parseFloat(item.age) > ageCutOffDays)
       const b = data.filter(item => parseFloat(item.age) <= ageCutOffDays)
-
       const aSorted = a.sort((a, b) => (b[toSortBy] - a[toSortBy]) );
 
       aSorted[aSorted.length-1].action = 'Worst Performing'
       newData = [...aSorted, ...b]
-    } else {
-      //This sort function for numbers
-      newData = data.sort((a, b) => a[toSortBy] - b[toSortBy]);
+
+    } else { //This sort function for numbers
+      //When sorting, if values are the same, sort by node_address
+      newData = data.sort(
+                 function(a, b) {
+                    if (a[toSortBy] === b[toSortBy]) {
+                       return a['node_address'].localeCompare(b['node_address']);
+                    }
+                    return a[toSortBy] > b[toSortBy] ? 1 : -1;
+                 });
     }
     //If we pass it a direction, we set it here, if not we take it from the state
     const toDirection = direction === null ? this.state.sortDirection : direction
