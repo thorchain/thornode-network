@@ -494,7 +494,14 @@ Disabled
       //Filter for our three tables
       let activeNodes = newItems.filter(item => item.status ==='Active')
       let standbyNodes = newItems.filter(item => (item.status ==='Standby' || item.status ==='Ready') && item.version === this.state.globalData.maxVersion)
-      let whitelisted = newItems.filter(item => !(item.status ==='Active' || item.status ==='Standby' || item.status ==='Ready') && item.version !== this.state.globalData.maxVersion)
+
+      //Create an array of all nodes that are active and standby
+      const active_standy_nodes = [ ...activeNodes.map(item => {return item.node_address}), ...standbyNodes.map(item => {return item.node_address})]
+      //White listed are all other nodes which are not active or on standby
+      //White listed is really just "Other"
+      let whitelisted = newItems.filter(item => !active_standy_nodes.includes(item.node_address))
+
+      //let whitelisted = newItems.filter(item => !(item.status ==='Active' || item.status ==='Standby' || item.status ==='Ready') /*&& item.version !== this.state.globalData.maxVersion*/)
 
       activeNodes = this.findChurnOuts(activeNodes) //Add in the actions for churning
       standbyNodes = this.findChurnIns(standbyNodes) //Add in the actions for nodes churning in
@@ -519,7 +526,7 @@ Disabled
       this.setState({
         activeNodes: activeNodesSorted,
         standByNodes: standBySorted,
-        whitelistedNodes: whitelistedSorted
+        whitelistedNodes: whitelistedSorted //This is really just other
       })
   }
 

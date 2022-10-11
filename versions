@@ -1,3 +1,6 @@
+V 00.06.00
+- Other table is now all nodes which are not active or standby (fixes issue with nodes on old version disappearing from standby list, will now show in other as will not be able to churn in on old version)
+
 V 00.05.00
 - Added second sort of node_address for when age is the same
 - Scaled down table
