@@ -28,7 +28,7 @@ export function getUrl(location) {
 export function setStateToUrl(state) {
   let urlData = {};
   for (const key in state) {
-    if (state.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(state, key)) {
       switch (key) {
         case 'date_range':
           let data = Object.values(state[key]);
@@ -88,7 +88,7 @@ export function getStateFromUrl(location) {
   const urlData = getUrl(location);
   const state = {};
   for (const key in urlData) {
-    if (urlData.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(urlData, key)) {
       switch (key) {
         // case 'text':
         //   state[key] =
