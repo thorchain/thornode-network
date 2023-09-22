@@ -10,7 +10,7 @@ function* boardsRenderEffectSaga() {
   let boards;
   let columns;
   let tasks;
-  if (localStorage.hasOwnProperty('scrum_boards')) {
+  if (Object.prototype.hasOwnProperty.call(localStorage, 'scrum_boards')) {
     const scrum_boards = loadState('scrum_boards');
     boards = scrum_boards.boards;
     columns = scrum_boards.columns;
@@ -29,7 +29,7 @@ function* boardRenderEffectSaga({ payload }) {
   let boards;
   let columns;
   let tasks;
-  if (localStorage.hasOwnProperty('scrum_boards')) {
+  if (Object.prototype.hasOwnProperty.call(localStorage, 'scrum_boards')) {
     scrum_boards = loadState('scrum_boards');
     boards = scrum_boards.boards;
     columns = scrum_boards.columns;
